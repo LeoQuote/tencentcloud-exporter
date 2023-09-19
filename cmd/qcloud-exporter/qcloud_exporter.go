@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/prometheus/client_golang/prometheus/collectors"
 	"net/http"
 	"os"
 	"time"
@@ -28,8 +29,8 @@ func newHandler(cred common.CredentialIface, c *config.TencentConfig,
 	exporterMetricsRegistry := prometheus.NewRegistry()
 	if includeExporterMetrics {
 		exporterMetricsRegistry.MustRegister(
-			prometheus.NewProcessCollector(prometheus.ProcessCollectorOpts{}),
-			prometheus.NewGoCollector(),
+			collectors.NewProcessCollector(collectors.ProcessCollectorOpts{}),
+			collectors.NewGoCollector(),
 		)
 	}
 
